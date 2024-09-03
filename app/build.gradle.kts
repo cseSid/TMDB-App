@@ -1,7 +1,12 @@
+
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
+
 
 android {
     namespace = "org.sid.tmdbapp"
@@ -20,6 +25,8 @@ android {
         }
     }
 
+
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -30,11 +37,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -47,7 +54,12 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
+kapt{
+    correctErrorTypes = true
+}
+
 
 dependencies {
 
@@ -66,4 +78,26 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Navigation Compose
+    implementation ("androidx.navigation:navigation-compose:2.7.7")
+
+    // Retrofit for API calls
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Coroutine support
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // Dependency Injection (Dagger/Hilt)
+    implementation("com.google.dagger:hilt-android:2.44")
+
+    // Glide or Coil for image loading
+    implementation ("io.coil-kt:coil-compose:2.4.0")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 }
+
+
+
+

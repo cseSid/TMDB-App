@@ -1,4 +1,4 @@
-package org.sid.tmdbapp
+package org.sid.tmdbapp.ui.screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
