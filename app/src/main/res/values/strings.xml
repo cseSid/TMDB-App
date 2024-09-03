@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TMDB App</string>
+    <string name="title_activity_movie_screen">MovieScreenActivity</string>
 </resources>

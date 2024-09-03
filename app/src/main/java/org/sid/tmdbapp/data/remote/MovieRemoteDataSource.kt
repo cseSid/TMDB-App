@@ -7,7 +7,7 @@ import javax.inject.Inject
 class MovieRemoteDataSource @Inject constructor(private val apiService: TmdbApiService) {
 
     suspend fun getTrendingMovies(): TrendingMovieResponse {
-        return apiService.getPopularMovies(1)
+        return apiService.getPopularMovies("en-US")
     }
 
 }
