@@ -29,3 +29,10 @@ data class Results (
     @SerializedName("vote_count"        ) var voteCount        : Int?           = null
 
 )
+
+
+data class ErrorResponse(
+    @SerializedName("success"        ) var success       : Boolean? = null,
+    @SerializedName("status_code"    ) var statusCode    : Int?     = null,
+    @SerializedName("status_message" ) var statusMessage : String?  = null
+)
