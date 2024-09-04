@@ -27,4 +27,4 @@ Check out the application in action in the video below:(Google Drive Like)
 copy this google drive link and paste it on the browser
 
 
-Visit ![video](https://drive.google.com/file/d/11ebFj_jE090vkmDn4-LRXxcKw2Up-0NZ/view?usp=drive_link)
+Visit the demo video by clicking [here](https://drive.google.com/file/d/11ebFj_jE090vkmDn4-LRXxcKw2Up-0NZ/view?usp=drive_link).
