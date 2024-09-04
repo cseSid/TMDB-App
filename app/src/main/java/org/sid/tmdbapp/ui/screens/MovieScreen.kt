@@ -51,6 +51,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import org.sid.tmdbapp.data.model.ErrorResponse
@@ -61,12 +62,11 @@ import org.sid.tmdbapp.ui.viewModel.MoviesViewModel
 
 
 @Composable
-fun MoviesScreen(viewModel: MoviesViewModel = hiltViewModel()) {
+fun MoviesScreen(navController: NavController,viewModel: MoviesViewModel) {
     val state by viewModel.getTrendingMovie.observeAsState(initial = Resource.Loading)
-
     when (state) {
         is Resource.Loading -> LoadingScreen()
-        is Resource.Success -> MovieGridScreen(movies = (state as Resource.Success).trendingMovieResponse.results, onMovieClick = {})
+        is Resource.Success -> MovieGridScreen(navController,viewModel,movies = (state as Resource.Success).trendingMovieResponse.results, onMovieClick = {})
         is Resource.Error -> ErrorScreen(errorResponse = (state as Resource.Error).errorResponse)
     }
 }
@@ -98,7 +98,7 @@ fun ErrorScreen(errorResponse: ErrorResponse) {
 
 
 @Composable
-fun MovieGridScreen(movies: List<Results>, onMovieClick: (Results) -> Unit) {
+fun MovieGridScreen(navController: NavController,viewModel: MoviesViewModel,movies: List<Results>, onMovieClick: (Results) -> Unit) {
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
 
     val filteredMovies = movies.filter {
@@ -116,7 +116,7 @@ fun MovieGridScreen(movies: List<Results>, onMovieClick: (Results) -> Unit) {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(filteredMovies) { movie ->
-                MovieItem(movie, onClick = { onMovieClick(movie) })
+                MovieItem(movie,viewModel, onClick = { onMovieClick(movie) } ,navController)
             }
         }
     }
@@ -160,11 +160,14 @@ fun SearchBar(searchQuery: TextFieldValue, onSearchQueryChange: (TextFieldValue)
 }
 
 @Composable
-fun MovieItem(movie: Results, onClick: (Results) -> Unit) {
+fun MovieItem(movie: Results,viewModel: MoviesViewModel, onClick: (Results) -> Unit, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = { onClick(movie) })
+            .clickable {
+                viewModel.selectMovie(movie)
+                navController.navigate("movie_detail")
+            }
     ) {
         Image(
             painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/w500${movie.posterPath}"),

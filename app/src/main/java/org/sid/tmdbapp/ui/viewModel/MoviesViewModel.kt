@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.sid.tmdbapp.data.model.ErrorResponse
+import org.sid.tmdbapp.data.model.Results
 import org.sid.tmdbapp.data.remote.api.Resource
 import org.sid.tmdbapp.domain.ApiException
 import org.sid.tmdbapp.domain.GetTrendingMoviesUseCase
@@ -17,6 +18,14 @@ class MoviesViewModel @Inject constructor(private val getTrendingMoviesUseCase: 
 
     private val _getTrendingMovies = MutableLiveData<Resource>(Resource.Loading)
     val getTrendingMovie: LiveData<Resource> = _getTrendingMovies
+
+
+    private val _selectedMovie = MutableLiveData<Results>()
+    val selectedMovie: LiveData<Results> get() = _selectedMovie
+
+    fun selectMovie(movie: Results) {
+        _selectedMovie.value = movie
+    }
 
    init {
        viewModelScope.launch {
