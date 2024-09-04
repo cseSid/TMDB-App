@@ -33,7 +33,7 @@ class HomeActivity : ComponentActivity() {
         NavHost(navController, startDestination = "movies") {
             composable("movies") { MoviesScreen(navController,movieViewModel) }
             composable("movie_detail") {
-                MovieDetailScreen(movieViewModel)
+                MovieDetailScreen(movieViewModel, navController)
             }
         }
     }
